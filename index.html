@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html>
+  <head>
+        <title> Turkish SOEs</title>    
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+
+
+    
+    <style>
+       span{
+      border-radius: 5px;
+      border: red 1px solid; 
+      padding: 2px;
+      margin: 1px;
+      font-size: x-small;
+     }
+     span:hover{
+      background-color: red;
+      color: white;
+      cursor: pointer;
+     }
+     .unlisted{
+      display: none;
+     }
+    
+     
+     
+ 
+ #selectedindicators, #selectedsoes{
+display: flex;
+flex-wrap: wrap;
+
+
+ }
+
+ 
+
+html, body {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    display: table;
+}
+
+footer {
+     display: table-row;
+    height: 0;
+}
+     *{
+      margin: 0px;
+     }
+    
+ </style>
+  </head>
+  <body  style="background-color: #f8f9fa">
+    <div class="  text-center  mb-0" style="background-color: #dee2e6"  >
+       <h2 class=" m-0 text-center align-content-center" style="color: #1F2937;">  SELECTED INDICATORS OF  TURKISH SOES 
+        </h2>
+       
+    </div>
+
+
+    
+  
+    <div class="  mt-0" >
+      <div class="container-fluid pt-3" style="background-color: #1F2937;" >
+            
+            <div class="row">
+                <div class="col  col-sm-4">                
+                
+                  <div class="card m-1">
+                    <h5 class="card-header text-center"><i class="bi bi-building"></i>   SOEs</h5>   
+                     
+                                     
+                    <div class="card-body">
+                       <div class="row ">
+                          <div class="col-12 ">
+                                  <select class="w-100"    id="soes" onchange="getSoeValue()" multiple size="6">
+                                              <!-- <option >Cat</option> -->
+                                                  
+                                </select>
+                          </div>
+                    
+                       </div>
+                     <div class="row  ">
+                                 
+                      
+                         <div class="btn-group btn-group-sm w-100 mx-3" role="group"  >
+                                       
+                          <button  type="button" class="btn btn-success id="myCheck1" onclick="checkAllSoes()">Select All </button>
+                          <button type="button" class="btn btn-danger "  id="myCheck1" onclick="decheckAllSoes()">Deselect All </button>
+                                      </div>
+                                      
+                     </div> 
+                        <div id="selectedsoes" >
+                                          
+                                </div>
+                    </div>
+                                        
+                                    
+                                          
+                               
+
+                  </div>
+
+
+
+                  
+                </div>
+                <div class="col col-sm-4">
+
+                  <div class="card  m-1">
+                      <h5 class="card-header text-center"> <i class="bi bi-info-circle"></i>  Indicators</h5> 
+                          
+                      <div class="card-body">
+                          <div class="row">
+                              <div class="col-12">
+                                  <div class="input-group mb-3">
+                                      <span class="input-group-text" id="inputGroup-sizing-default">Filter</span>
+                                      <input id="indfilter" placeholder="Indicator" onkeyup="indfilter()" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" >
+                                    </div> 
+                              </div>  
+                          </div> 
+                           <div class="row">
+                              <div class="col-12">
+                                  <select  class="form-select w-100"  multiple aria-label="size 6 select example" id="indicators" size="6" multiple onchange="getIdicatorsValues()">  
+                                  </select>
+                              </div>  
+                          </div> 
+                         
+              
+              
+                          <div class="row">
+              
+                                                 
+                            <div class="btn-group btn-group-sm w-100 mx-3" role="group"  >
+                                  <button  class="btn btn-success "  id="myCheck1" onclick="checkAllindicators()">Select All </button>
+               
+                                   <button  class="btn btn-danger" id="myCheck1" onclick="decheckAllindicators()">Deselect All </button>
+                     
+              
+                              </div>     
+                            </div>  
+              
+                      
+                      <div id="selectedindicators" >
+                
+                      </div>
+              
+                  </div>
+               
+                    
+              </div>
+                </div>
+
+                
+                <div class="col  col-sm-4">
+
+                  <div class="card m-1">
+                    <h5 class="card-header text-center"> <i class="bi bi-calendar"></i>
+                        Years </h5> 
+                            
+                        <div class="card-body">
+  
+                             <div class="input-group ">
+                         <span class="input-group-text" id="inputGroup-sizing-default">First year</span>
+                          <input id="yearstartinput"  type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" value="2014" min="2014" max="2022">
+                    </div> 
+                    <div class="input-group mb-3">
+                           <span class="input-group-text" id="inputGroup-sizing-default">Last Year </span>
+                          <input id="yearsendinput"   type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" value="2020" min="2014" max="2022">
+                      </div>
+                                 
+                        </div>
+                  </div>
+                      
+                
+              </div>
+              
+            </div>
+             <button class="container-fluid btn btn-primary my-4" onclick="showDatas()" id="getir"> Show Datas</button>
+
+        </div>
+        <div class="row container-fluid" >
+           <div class="  m-auto" id="table">
+           
+        </div>
+        </div>
+      
+    </div>
+    <footer class=" " style="background-color: #1F2937;">
+          <p class="text-white"> Source: <a class="link-success " target="_blank"  href="https://en.hmb.gov.tr/"> ANNUAL OWNERSHIP REPORTS OF SOEs</a></p>
+          
+       </footer>
+    
+    
+
+
+ <script>   
+  
+ var bigdata;
+
+ let listofselectedsoes=[];
+ let listofselectedindicators=[];
+ let indlist=[];
+ let indlistunsorted=[];
+ let soelist=[];
+
+let nameOfindicator;
+
+
+function checkAllSoes(){
+
+  soelist.forEach(listSoe);
+}
+
+
+function checkAllindicators(){
+
+indlist.forEach(listIndicator)
+
+ }
+
+
+
+//to get selected indicators
+ function getIdicatorsValues(select) {
+ 
+ let a=document.getElementById('indicators').value;
+ listIndicator(a)
+ }
+ 
+
+//to get   selected SOE
+function getSoeValue(select)
+ {
+     let a=document.getElementById('soes').value;
+ 
+      listSoe(a)
+    
+    return a;
+ }
+
+
+
+
+//to list selected soes above
+function listSoe(soe){
+
+
+  
+if(soe==""||listofselectedsoes.includes(soe)){}
+else{ 
+ 
+  let selectesoe=document.createElement("span")
+  selectesoe.innerHTML=   soe ;
+;
+  selectesoe.classList.add("selectedsoess");
+  document.getElementById("selectedsoes").appendChild(selectesoe)
+  listofselectedsoes.push(soe)
+
+
+}
+}
+
+ 
+
+  
+
+function decheckAllSoes(){
+let a=document.getElementById("selectedsoes").getElementsByTagName("span")
+
+Array.from(a).forEach((el)=>{
+  el.remove();
+
+  listofselectedsoes=[];
+  clearSelectedsoes();
+
+ })
+
+ 
+}
+
+function decheckAllindicators(){
+let a=document.getElementById("selectedindicators").getElementsByTagName("span")
+
+Array.from(a).forEach((el)=>{
+  el.remove();
+
+  listofselectedindicators=[];
+  clearSelectedindicators();
+
+ })
+
+ 
+
+ 
+}
+
+
+
+
+
+//remove selected soes
+document.getElementById("selectedsoes").addEventListener("click",function(ev){
+   ev.preventDefault();
+   if(ev.target.tagName=="SPAN")
+{
+  let unlistsoe=ev.target.innerHTML
+   let indexofunlistsoe=listofselectedsoes.indexOf(unlistsoe);
+   listofselectedsoes.splice(indexofunlistsoe,1);
+  ev.target.remove();
+  clearSelectedsoes();
+
+
+}
+ });
+
+
+//remove selected idicators
+document.getElementById("selectedindicators").addEventListener("click",function(ev){
+  ev.preventDefault();
+
+if(ev.target.tagName=="SPAN")
+{
+    let unlistind=ev.target.textContent
+   let indexofunlistind=listofselectedindicators.indexOf(unlistind);
+
+
+   listofselectedindicators.splice(indexofunlistind,1)
+  ev.target.remove();
+  clearSelectedindicators();
+
+ 
+}
+
+
+ });
+
+ 
+
+
+function listIndicator(indicator){
+if(indicator==""||listofselectedindicators.includes(indicator)){}
+else{ 
+ 
+  let selectedindicator=document.createElement("span")
+  selectedindicator.innerHTML=indicator;
+  selectedindicator.classList.add("selectedindicators");
+  document.getElementById("selectedindicators").appendChild(selectedindicator)
+  listofselectedindicators.push(indicator)
+ 
+
+}
+}
+
+
+
+
+function findindexofselectedin(ind){
+  return indlistunsorted.indexOf(ind);
+  
+}
+
+
+function changeUndefined(num){
+
+  
+  if(typeof num=="undefined") {
+
+ 
+    let data="-";
+    return data} 
+    else  {
+      
+      return   num;}
+
+ 
+}
+ function showDatas(){
+  let datainitialyear=2014;
+  let datalastyear=2022;
+  let tepstart=0;
+ let soe=listofselectedsoes[0];
+ let indi=listofselectedindicators[0];
+ let yearStart=parseInt(document.getElementById("yearstartinput").value);
+ let yearEnd=parseInt(document.getElementById("yearsendinput").value)+1;
+if(yearEnd<yearStart){
+    tepstart +=yearStart+1;
+  yearStart=yearEnd-1;
+  yearEnd=tepstart;
+}
+if(yearStart<1990) yearStart=datainitialyear;
+if(yearEnd>2025)yearEnd=datalastyear;
+
+  if((listofselectedsoes.length==1&&listofselectedindicators.length>=1)||(listofselectedsoes.length>=1&&listofselectedindicators.length==1)){
+
+    if(isNaN(yearStart)){
+       yearStart=datainitialyear;
+  
+    }
+    if(isNaN(yearEnd)){
+       
+  yearEnd=datalastyear;
+
+    }
+     
+                 //incase only one soe selected while  more than one idicator selected
+
+                  if(listofselectedsoes.length==1&&listofselectedindicators.length>1){
+                  
+
+                        let text="<h1  class= 'display-5 text-center'>"+ soe+"   </h1><table class='table table-hover' >";
+                          text+="<tr> <th>"+nameOfindicator+ "</th> ";
+                              for(let ii=yearStart;ii<yearEnd ;ii++){
+                                text+="<th> "+ ii+ "</th> "
+                              }
+                              text+="</tr> "
+
+                              for(let i=0;i<listofselectedindicators.length;i++)
+                              
+                              {
+                                text+="<tr> <td>"+listofselectedindicators[i] +" </td> "
+                              for(let ii=yearStart;ii<yearEnd ;ii++){
+                              text+="<td>"+ changeUndefined(bigdata[soe][findindexofselectedin(listofselectedindicators[i])][ii])+"   </td>";
+
+
+                              }
+                              text+="</tr> ";
+                              }
+                              text+="</table>";
+
+                              document.getElementById("table").innerHTML=text;
+
+
+}
+
+
+
+                    //incase one or more soe selected while  only one idicator selected
+                  else {
+                    
+                    let text="<h1 class= 'display-5 text-center'  >"+ indi+" </h1><table class='table table-hover'>";
+                                text+="<tr> <th>"+nameOfindicator+ "</th> ";
+                              for(let ii=yearStart;ii<yearEnd ;ii++){
+                                text+="<th> "+ ii+ "</th> "
+                              }
+                              text+="</tr> "
+
+                              for(let i=0;i<listofselectedsoes.length;i++)
+                              
+                              {
+                                text+="<tr> <td>"+(i+1)+". "+listofselectedsoes[i] +" </td> "
+                              for(let ii=yearStart;ii<yearEnd ;ii++){
+                              text+="<td>"+ changeUndefined(bigdata[listofselectedsoes[i]][findindexofselectedin(indi)][ii])+"   </td>";
+
+
+                              }
+                              text+="</tr> ";
+                              }
+
+
+
+
+
+// make sum row if more than one soe selected
+
+                              if(listofselectedsoes.length>1){
+
+let sum=[];
+//sum numbers
+for(let ii=yearStart;ii<yearEnd ;ii++){
+      
+
+                              let sumtemp=0;
+
+
+
+                              for(let i=0;i<listofselectedsoes.length;i++)
+                            {
+                              let data=parseFloat( changeUndefined(bigdata[listofselectedsoes[i]][findindexofselectedin(indi)][ii]).replace('INR','').replace(/,/g,''));
+
+
+                               if(data<99999999999999) {
+
+ 
+                                sumtemp+=data;
+
+                              }else{         
+                                                      
+                                sumtemp+=0;
+
+                              }
+
+                            }
+                          sum.push(sumtemp);
+                            }   
+                            
+                            
+                            
+                            
+                            text+="<tr> <th>  SUM </th> ";      
+
+    for(let ii=0;ii<sum.length ;ii++){
+                              text+="<th> "+ sum[ii].toFixed(1).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+ "</th> "
+                            }
+                            text+="</tr>";
+
+
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+                              text+="</table>";
+
+                              document.getElementById("table").innerHTML=text;
+                  }
+
+ } 
+ else if(listofselectedsoes.length==0){
+  alert("Select one or more SOE")
+
+} 
+else if(listofselectedindicators.length==0){
+  alert("Select one or more indicator")
+
+} 
+else{
+  alert("You must reduce selected SOEs or indicators to only one, otherwise it can't create table.")
+}
+ 
+
+ }
+
+
+
+
+ //to create SOE's list
+function createSoe(soe){
+    
+    let newsoe=document.createElement("option")
+    newsoe.textContent=soe;
+    document.getElementById("soes").appendChild(newsoe)
+
+}
+
+ function createIndicators(indicator){
+    
+    let newind=document.createElement("option")
+    newind.textContent=indicator;
+    newind.classList.add("listedinds");
+    document.getElementById("indicators").appendChild(newind)
+
+}
+
+ 
+
+
+    fetch("veri.json").then(Response=>Response.json()).then(data=>{
+        bigdata=data;
+      soes=Object.keys(data);
+    Object.keys(data).sort(function(a, b){return a.localeCompare(b)}).forEach(createSoe);
+    soelist= Object.keys(data).sort(function(a, b){return a.localeCompare(b)});
+    let da=getSoeValue();
+
+    nameOfindicator2=bigdata[Object.keys(data)[0]][1]
+    let numberkey=Object.keys(nameOfindicator2).length
+    let listofsoekeys=Object.keys(nameOfindicator2);
+       numberkey--;
+      nameOfindicator=listofsoekeys[numberkey]
+ 
+    
+   for(let i=0; i<bigdata[Object.keys(data)[0]].length; i++){
+    indlist.push(bigdata[Object.keys(data)[0]][i][nameOfindicator]);
+   indlistunsorted.push(bigdata[Object.keys(data)[0]][i][nameOfindicator]);
+    }
+   indlist.sort(function(a, b){return a.localeCompare(b)}).forEach(createIndicators);
+
+
+ }
+ );
+
+ function indfilter(){
+  let input=document.getElementById("indfilter").value.toUpperCase();
+  let listedinds=document.getElementsByClassName("listedinds");
+  
+  for (let ii = 0; ii < listedinds.length; ii++) {
+
+     txtValue = listedinds[ii].textContent || listedinds[ii].innerText;
+ 
+          //if (txtValue.toUpperCase().indexOf(input) > -1) {
+          if (txtValue.toUpperCase().indexOf(input) > -1) {
+            listedinds[ii].style.display = "";
+ 
+
+           } else {
+            listedinds[ii].style.display = "none";
+ 
+          }
+        }
+  }
+
+  function clearSelectedsoes(){
+    var elements = document.getElementById("soes").options;
+
+    for(var i = 0; i < elements.length; i++){
+      elements[i].selected = false;
+    }
+  }
+
+  function clearSelectedindicators(){
+    var elements = document.getElementById("indicators").options;
+
+    for(var i = 0; i < elements.length; i++){
+      elements[i].selected = false;
+    }
+  }
+
+</script>
+
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+  </body>
+</html>
