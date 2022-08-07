@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-        <title> Turkish SOEs</title>    
+        <title> Turkish SOEs Financials</title>    
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
@@ -12,15 +12,68 @@
 
     
     <style>
+::-webkit-scrollbar {
+    -webkit-appearance: none;
+}
+
+::-webkit-scrollbar:vertical {
+    width: 12px;
+}
+
+::-webkit-scrollbar:horizontal {
+    height: 12px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, .5);
+    border-radius: 10px;
+    border: 2px solid #ffffff;
+}
+
+::-webkit-scrollbar-track {
+    border-radius: 10px;  
+    background-color: #ffffff; 
+}
+        ul{
+            overflow-y:scroll;
+             min-height: 200px;
+             max-height: 200px;
+             padding: 0px;
+             border-radius: 5px;
+            box-shadow: 2px 2px #888888;
+            border: 1px black solid;
+              
+        }
+
+        ul:hover{
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        li:hover{
+            background-color:  
+            #1F2937;
+            color: white;
+        }
+        li {
+           background-color: #dee2e6;
+            padding-left: 5px;
+            list-style-type: none;
+            margin-top: 1px;
+            border-radius: 5px;
+
+        }
+
        span{
       border-radius: 5px;
        padding: 2px;
       margin: 1px;
-      font-size: x-small;
-      background-color: #dee2e6;
+      font-size: small;
+      background-color: #6db17c;
+      color: white;
      }
      span:hover{
-      background-color:  #a8a094;
+      background-color: #b66971;
       color: white;
       cursor: pointer;
      }
@@ -54,16 +107,16 @@ footer {
      *{
       margin: 0px;
      }
-     select {
-  height: 54px;
-  font-size: 12px;
-}
+     input{
+      min-width: 100px;
+     }
+     
  </style>
   </head>
   <body  style="background-color: #f8f9fa">
-    <div class="  text-center  mb-0" style="background-color: #dee2e6"  >
-       <h2 class=" m-0 text-center align-content-center" style="color: #1F2937;">  SELECTED INDICATORS OF  TURKISH SOES 
-        </h2>
+    <div class="  text-center bg-primary mb-0"   >
+       <h3 class=" m-0 text-center align-content-center text-white" style="color: #1F2937;">  SELECTED INDICATORS OF  TURKISH SOES 
+        </h3>
        
     </div>
 
@@ -73,8 +126,8 @@ footer {
     <div class="  mt-0" >
       <div class="container-fluid pt-3" style="background-color: #1F2937;" >
             
-            <div class="row">
-                <div class="col  col-sm-4">                
+            <div class="row  justify-content-center ">
+                <div class="col-10  col-md-4">                
                 
                   <div class="card m-1">
                     <h5 class="card-header text-center"><i class="bi bi-building"></i>   SOEs</h5>   
@@ -83,26 +136,42 @@ footer {
                     <div class="card-body">
                        <div class="row ">
                           <div class="col-12 ">
-                                  <select class="w-100"    id="soes" onchange="getSoeValue()" multiple size="6">
+                                  <ul     id="soes" onchange="getSoeValue()"  size="6">
                                               <!-- <option >Cat</option> -->
                                                   
-                                </select>
+                                </ul>
                           </div>
                     
                        </div>
                      <div class="row  ">
                                  
                       
-                         <div class="btn-group btn-group-sm w-100 mx-3" role="group"  >
+                         <div class="btn-group btn-group-sm w-100 mx-3 " role="group"  >
                                        
-                          <button  type="button" class="btn btn-success id="myCheck1" onclick="checkAllSoes()">Select All </button>
-                          <button type="button" class="btn btn-danger "  id="myCheck1" onclick="decheckAllSoes()">Deselect All </button>
-                                      </div>
-                                      
-                     </div> 
-                        <div id="selectedsoes" >
-                                          
-                                </div>
+                          <button  type="button" class="btn btn-success " id="myCheck1" onclick="checkAllSoes()">Select All 
+                        </button>
+                 
+                          <button type="button" class="btn btn-danger position-relative"  id="decheckAllSoes" onclick="decheckAllSoes()">Deselect All  </button>
+                                
+                           </div>
+                                    
+                     </div>  
+                     
+                     <div class="border mt-1">
+                                 <span class="btn position-relative text-success  "> Selected SOEs: 
+                                                <span class="badge position-absolute   translate-middle   rounded-pill bg-danger text-white" id="badgesoes">
+                                                  0
+                                                  
+                                                </span>
+                                  </span>   
+                                  <div id="selectedsoes" >
+                                                  
+                                  </div>
+
+
+                     </div>
+                      
+
                     </div>
                                         
                                     
@@ -114,8 +183,8 @@ footer {
 
 
                   
-                </div>
-                <div class="col col-sm-4">
+                </div> 
+                <div class="col-10 col-md-4">
 
                   <div class="card  m-1">
                       <h5 class="card-header text-center"> <i class="bi bi-info-circle"></i>  Indicators</h5> 
@@ -131,8 +200,8 @@ footer {
                           </div> 
                            <div class="row">
                               <div class="col-12">
-                                  <select  class="form-select w-100"  multiple aria-label="size 6 select example" id="indicators" size="6" multiple onchange="getIdicatorsValues()">  
-                                  </select>
+                                  <ul  class="form-select w-100"   aria-label="size 6 select example" id="indicators" size="6"  onchange="getIdicatorsValues()" >  
+                                  </ul>
                               </div>  
                           </div> 
                          
@@ -148,13 +217,25 @@ footer {
                      
               
                               </div>     
+                              
+
+
+
+                              
                             </div>  
-              
+                          <div class="border mt-1"> 
+                          <span class="btn position-relative text-success  "> Selected Indicators: 
+                                <span class="badge position-absolute   translate-middle   rounded-pill bg-danger text-white" id="badgeindi">
+                                  0
+                                   
+                                </span>
+                               </span> 
+                            
                       
                       <div id="selectedindicators" >
-                
+                        
                       </div>
-              
+              </div>
                   </div>
                
                     
@@ -162,7 +243,7 @@ footer {
                 </div>
 
                 
-                <div class="col  col-sm-4">
+                <div class="col-10  col-md-4">
 
                   <div class="card m-1">
                     <h5 class="card-header text-center"> <i class="bi bi-calendar"></i>
@@ -172,7 +253,7 @@ footer {
   
                              <div class="input-group ">
                          <span class="input-group-text" id="inputGroup-sizing-default">First year</span>
-                          <input id="yearstartinput"  type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" value="2014" min="2014" max="2022">
+                          <input id="yearstartinput"   type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" value="2014" min="2014" max="2022">
                     </div> 
                     <div class="input-group mb-3">
                            <span class="input-group-text" id="inputGroup-sizing-default">Last Year </span>
@@ -196,7 +277,7 @@ footer {
         </div>
       
     </div>
-    <footer class=" " style="background-color: #1F2937;">
+    <footer i="footer" style="background-color: #1F2937;">
           <p class="text-white"> Source: <a class="link-success " target="_blank"  href="https://en.hmb.gov.tr/"> ANNUAL OWNERSHIP REPORTS OF SOEs</a></p>
           
        </footer>
@@ -205,7 +286,7 @@ footer {
 
 
  <script>   
-  
+  let makedminus;
  var bigdata;
 
  let listofselectedsoes=[];
@@ -216,39 +297,84 @@ footer {
 
 let nameOfindicator;
 
-
+ 
 function checkAllSoes(){
 
   soelist.forEach(listSoe);
+  badgeupdate();
 }
 
 
 function checkAllindicators(){
 
 indlist.forEach(listIndicator)
-
- }
+badgeupdate();
+  }
 
 
 
 //to get selected indicators
- function getIdicatorsValues(select) {
+ function getIdicatorsValues(a) {
  
- let a=document.getElementById('indicators').value;
  listIndicator(a)
  }
+
+
+ function badgeupdate(){
+  document.getElementById("badgesoes").innerHTML=listofselectedsoes.length;
+  document.getElementById("badgeindi").innerHTML=listofselectedindicators.length;
+  
+ }
+
+ document.getElementById('indicators').addEventListener("click", function(ev){
+
+
+ev.preventDefault;
+if(ev.target.tagName=="LI")
+{
+  let a=ev.target.innerHTML
+   
+  getIdicatorsValues(a)
+
+
+}
+     });
+
+
+
+
+
+
+
+
  
 
 //to get   selected SOE
-function getSoeValue(select)
+function getSoeValue(a)
  {
-     let a=document.getElementById('soes').value;
- 
-      listSoe(a)
-    
+
+
+    listSoe(a)
+
     return a;
  }
 
+  document.getElementById('soes').addEventListener("click", function(ev){
+
+
+ev.preventDefault;
+if(ev.target.tagName=="LI")
+{
+  let a=ev.target.innerHTML
+   
+  getSoeValue(a)
+
+
+}
+     });
+ 
+      
+ 
 
 
 
@@ -262,16 +388,25 @@ else{
  
   let selectesoe=document.createElement("span")
   selectesoe.innerHTML=   soe ;
-;
-  selectesoe.classList.add("selectedsoess");
+    selectesoe.classList.add("selectedsoess");
+
+  let over = document.createAttribute("onmouseenter");
+  over.value = "makeminus(this)";
+  selectesoe.setAttributeNode(over);
+
+  let out = document.createAttribute("onmouseleave");
+  out.value = "backNormal(this)";
+   selectesoe.setAttributeNode(out);
+
+
   document.getElementById("selectedsoes").appendChild(selectesoe)
   listofselectedsoes.push(soe)
 
 
 }
-}
+badgeupdate();}
 
- 
+
 
   
 
@@ -282,10 +417,10 @@ Array.from(a).forEach((el)=>{
   el.remove();
 
   listofselectedsoes=[];
-  clearSelectedsoes();
+   
 
  })
-
+ badgeupdate();
  
 }
 
@@ -296,33 +431,53 @@ Array.from(a).forEach((el)=>{
   el.remove();
 
   listofselectedindicators=[];
-  clearSelectedindicators();
-
+ 
  })
 
  
+ badgeupdate();
+ 
+}
+function makeminus(x){
+    makedminus=x.innerHTML;
+  
+   x.innerHTML="<i class='bi bi-file-minus'>remove ("+makedminus+")</i>"
+
+}
+function backNormal(x){
+  x.innerHTML=makedminus;
+}
+
+document.getElementById("selectedsoes").addEventListener("click",function(ev){
+   ev.preventDefault();
+    if(ev.target.tagName=="SPAN" )
+{
+  let unlistsoe=makedminus
+   let indexofunlistsoe=listofselectedsoes.indexOf(unlistsoe);
+   listofselectedsoes.splice(indexofunlistsoe,1);
+  ev.target.remove();
+ 
 
  
 }
 
-
-
-
-
-//remove selected soes
-document.getElementById("selectedsoes").addEventListener("click",function(ev){
-   ev.preventDefault();
-   if(ev.target.tagName=="SPAN")
+if( ev.target.tagName=="I")
 {
-  let unlistsoe=ev.target.innerHTML
+
+
+  let unlistsoe=makedminus;
    let indexofunlistsoe=listofselectedsoes.indexOf(unlistsoe);
    listofselectedsoes.splice(indexofunlistsoe,1);
-  ev.target.remove();
-  clearSelectedsoes();
-
+  ev.target.parentElement.remove();
+ 
+ 
 
 }
+badgeupdate();
  });
+
+
+
 
 
 //remove selected idicators
@@ -331,18 +486,31 @@ document.getElementById("selectedindicators").addEventListener("click",function(
 
 if(ev.target.tagName=="SPAN")
 {
-    let unlistind=ev.target.textContent
+    let unlistind=makedminus
    let indexofunlistind=listofselectedindicators.indexOf(unlistind);
 
 
    listofselectedindicators.splice(indexofunlistind,1)
   ev.target.remove();
-  clearSelectedindicators();
+
+  
+ 
+}
+
+if( ev.target.tagName=="I")
+{
+
+  let unlistind=makedminus
+   let indexofunlistind=listofselectedindicators.indexOf(unlistind);
+
+
+   listofselectedindicators.splice(indexofunlistind,1)
+   ev.target.parentElement.remove();
 
  
 }
 
-
+badgeupdate();
  });
 
  
@@ -355,12 +523,21 @@ else{
   let selectedindicator=document.createElement("span")
   selectedindicator.innerHTML=indicator;
   selectedindicator.classList.add("selectedindicators");
+
+  let over = document.createAttribute("onmouseenter");
+  over.value = "makeminus(this)";
+  selectedindicator.setAttributeNode(over);
+
+  let out = document.createAttribute("onmouseleave");
+  out.value = "backNormal(this)";
+  selectedindicator.setAttributeNode(out);
+
   document.getElementById("selectedindicators").appendChild(selectedindicator)
   listofselectedindicators.push(indicator)
  
-
+   
 }
-}
+badgeupdate();}
 
 
 
@@ -418,7 +595,7 @@ if(yearEnd>2025)yearEnd=datalastyear;
                   if(listofselectedsoes.length==1&&listofselectedindicators.length>1){
                   
 
-                        let text="<h1  class= 'display-5 text-center'>"+ soe+"   </h1><table class='table table-hover' >";
+                        let text="<h1  class= 'display-5 text-center'>"+ soe+"   </h1><table class='table table-hover  table-striped' >";
                           text+="<tr> <th>"+nameOfindicator+ "</th> ";
                               for(let ii=yearStart;ii<yearEnd ;ii++){
                                 text+="<th> "+ ii+ "</th> "
@@ -448,7 +625,7 @@ if(yearEnd>2025)yearEnd=datalastyear;
                     //incase one or more soe selected while  only one idicator selected
                   else {
                     
-                    let text="<h1 class= 'display-5 text-center'  >"+ indi+" </h1><table class='table table-hover'>";
+                    let text="<h1 class= 'display-5 text-center'  >"+ indi+" </h1><table class='table table-hover  table-striped'>";
                                 text+="<tr> <th>"+nameOfindicator+ "</th> ";
                               for(let ii=yearStart;ii<yearEnd ;ii++){
                                 text+="<th> "+ ii+ "</th> "
@@ -548,10 +725,13 @@ else if(listofselectedindicators.length==0){
 
 } 
 else{
-  alert("You must reduce selected SOEs or indicators to only one, otherwise it can't create table.")
+
+
+
+  alert("You selected: " + listofselectedsoes.length +" SOE and "+listofselectedindicators.length +" indicator \n \n You must reduce selected SOEs or indicators to only 1, otherwise it can't create table. \n \n Option-1:Select 1 SOE and 1 or more indicators\n \n Option-2: Select 1 indicator and 1 or more SOEs ")
 }
  
-
+ 
  }
 
 
@@ -560,7 +740,7 @@ else{
  //to create SOE's list
 function createSoe(soe){
     
-    let newsoe=document.createElement("option")
+    let newsoe=document.createElement("li")
     newsoe.textContent=soe;
     document.getElementById("soes").appendChild(newsoe)
 
@@ -568,11 +748,11 @@ function createSoe(soe){
 
  function createIndicators(indicator){
     
-    let newind=document.createElement("option")
+    let newind=document.createElement("li")
     newind.textContent=indicator;
     newind.classList.add("listedinds");
     document.getElementById("indicators").appendChild(newind)
-
+    decheckAllSoes();
 }
 
  
@@ -622,21 +802,8 @@ function createSoe(soe){
         }
   }
 
-  function clearSelectedsoes(){
-    var elements = document.getElementById("soes").options;
-
-    for(var i = 0; i < elements.length; i++){
-      elements[i].selected = false;
-    }
-  }
-
-  function clearSelectedindicators(){
-    var elements = document.getElementById("indicators").options;
-
-    for(var i = 0; i < elements.length; i++){
-      elements[i].selected = false;
-    }
-  }
+  
+  
 
 </script>
 
