@@ -275,7 +275,9 @@ footer {
            
         </div>
         </div>
-      
+        <div style=" margin:auto; width: 85%; height: 100%;">
+          <canvas id="myChart" ></canvas>
+        </div>
     </div>
     <footer i="footer" style="background-color: #1F2937;">
           <p class="text-white"> Source: <a class="link-success " target="_blank"  href="https://en.hmb.gov.tr/"> ANNUAL OWNERSHIP REPORTS OF SOEs</a></p>
@@ -284,7 +286,20 @@ footer {
     
     
 
+       <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+       <script>
 
+
+ getdatam()
+var elel;
+ async function getdatam() { 
+
+       
+
+
+      }
+
+      </script>
  <script>   
   let makedminus;
  var bigdata;
@@ -549,7 +564,6 @@ function findindexofselectedin(ind){
 
 
 function changeUndefined(num){
-
   
   if(typeof num=="undefined") {
 
@@ -563,6 +577,30 @@ function changeUndefined(num){
  
 }
  function showDatas(){
+
+  let chartStatus = Chart.getChart("myChart");  
+    if (chartStatus != undefined) {
+      chartStatus.destroy();
+    }
+
+  const data = {
+          labels: [],
+          datasets: []
+        };
+      
+        const config = {
+          type: 'line',
+          data: data,
+          options: {},
+         
+        };
+
+
+
+  const myChart = new Chart(document.getElementById('myChart'), config );
+ 
+
+
   let datainitialyear=2014;
   let datalastyear=2022;
   let tepstart=0;
@@ -595,19 +633,45 @@ if(yearEnd>2025)yearEnd=datalastyear;
                   if(listofselectedsoes.length==1&&listofselectedindicators.length>1){
                   
 
+
+                    for(let i=0;i<listofselectedindicators.length;i++) {
+                  myChart.data.datasets.push( {
+                                      label: '',
+                                      borderColor: colorArray[Math.floor(Math.random() * colorArray.length)],
+                                      backgroundColor : 'rgba(0, 0, 0,0)',
+                                      data: [],  } )
+                                     myChart.data.datasets[i].label=listofselectedindicators[i]
+ }
+ for(let ii=yearStart;ii<yearEnd ;ii++){
+                                myChart.data.labels.push(ii)
+                               
+                              }
+
+
+
                         let text="<h1  class= 'display-5 text-center'>"+ soe+"   </h1><table class='table table-hover  table-striped' >";
                           text+="<tr> <th>"+nameOfindicator+ "</th> ";
                               for(let ii=yearStart;ii<yearEnd ;ii++){
                                 text+="<th> "+ ii+ "</th> "
+
+                               
                               }
                               text+="</tr> "
 
                               for(let i=0;i<listofselectedindicators.length;i++)
                               
                               {
+                                
+                                
+
+
+                                      
+                                
                                 text+="<tr> <td>"+listofselectedindicators[i] +" </td> "
                               for(let ii=yearStart;ii<yearEnd ;ii++){
                               text+="<td>"+ changeUndefined(bigdata[soe][findindexofselectedin(listofselectedindicators[i])][ii])+"   </td>";
+                              myChart.data.datasets[i].data.push(changeUndefined(bigdata[soe][findindexofselectedin(listofselectedindicators[i])][ii]).replace('INR','').replace(/,/g,''))
+                             
 
 
                               }
@@ -616,6 +680,10 @@ if(yearEnd>2025)yearEnd=datalastyear;
                               text+="</table>";
 
                               document.getElementById("table").innerHTML=text;
+                              myChart.update();
+
+
+
 
 
 }
@@ -629,22 +697,42 @@ if(yearEnd>2025)yearEnd=datalastyear;
                                 text+="<tr> <th>"+nameOfindicator+ "</th> ";
                               for(let ii=yearStart;ii<yearEnd ;ii++){
                                 text+="<th> "+ ii+ "</th> "
+                                myChart.data.labels.push(ii)
                               }
                               text+="</tr> "
 
                               for(let i=0;i<listofselectedsoes.length;i++)
                               
                               {
+
+
+
+
+                               
+                  myChart.data.datasets.push( {
+                                      label: '',
+                                      borderColor: colorArray[Math.floor(Math.random() * colorArray.length)],
+                                      backgroundColor : 'rgba(0, 0, 0,0)',
+                                      data: [],  } )
+                                     myChart.data.datasets[i].label=listofselectedsoes[i]
+ 
+
+
+
+
+
                                 text+="<tr> <td>"+(i+1)+". "+listofselectedsoes[i] +" </td> "
                               for(let ii=yearStart;ii<yearEnd ;ii++){
                               text+="<td>"+ changeUndefined(bigdata[listofselectedsoes[i]][findindexofselectedin(indi)][ii])+"   </td>";
 
-
+                              myChart.data.datasets[i].data.push(changeUndefined(bigdata[listofselectedsoes[i]][findindexofselectedin(indi)][ii]).replace('INR','').replace(/,/g,''))
+                              
                               }
                               text+="</tr> ";
                               }
 
 
+                              myChart.update();
 
 
 
@@ -665,7 +753,8 @@ for(let ii=yearStart;ii<yearEnd ;ii++){
                             {
                               let data=parseFloat( changeUndefined(bigdata[listofselectedsoes[i]][findindexofselectedin(indi)][ii]).replace('INR','').replace(/,/g,''));
 
-
+                             
+                             
                                if(data<99999999999999) {
 
  
@@ -804,7 +893,16 @@ function createSoe(soe){
 
   
   
-
+  var colorArray = ['#FF6633', '#FFB399', '#FF33FF', '#FFFF99', '#00B3E6', 
+		  '#E6B333', '#3366E6', '#999966', '#99FF99', '#B34D4D',
+		  '#80B300', '#809900', '#E6B3B3', '#6680B3', '#66991A', 
+		  '#FF99E6', '#CCFF1A', '#FF1A66', '#E6331A', '#33FFCC',
+		  '#66994D', '#B366CC', '#4D8000', '#B33300', '#CC80CC', 
+		  '#66664D', '#991AFF', '#E666FF', '#4DB3FF', '#1AB399',
+		  '#E666B3', '#33991A', '#CC9999', '#B3B31A', '#00E680', 
+		  '#4D8066', '#809980', '#E6FF80', '#1AFF33', '#999933',
+		  '#FF3380', '#CCCC00', '#66E64D', '#4D80CC', '#9900B3', 
+		  '#E64D66', '#4DB380', '#FF4D4D', '#99E6E6', '#6666FF'];
 </script>
 
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
