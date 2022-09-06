@@ -267,14 +267,17 @@ footer {
               </div>
               
             </div>
-             <button class="container-fluid btn btn-primary my-4" onclick="showDatas()" id="getir"> Show Datas</button>
+             <button class="container-fluid btn btn-primary my-4" onclick="showDatas()" id="getir">Fetch datas</button>
 
         </div>
+
         <div class="row container-fluid" >
            <div class="  m-auto" id="table">
-           
+          </div>
         </div>
-        </div>
+       <div class=" w-100"> <button  class=" btn btn-info mx-auto my-4 w-100" id="xport">Export excel</button></div>
+      
+
         <div style=" margin:auto; width: 65%; height: 100%;">
           <canvas id="myChart" ></canvas>
         </div>
@@ -309,6 +312,12 @@ var elel;
  let indlist=[];
  let indlistunsorted=[];
  let soelist=[];
+
+//export excell
+var exceldata=[];
+var excelheader=[];
+var exceltitle=[];
+
 
 let nameOfindicator;
 
@@ -632,8 +641,9 @@ if(yearEnd>2025)yearEnd=datalastyear;
 
                   if(listofselectedsoes.length==1&&listofselectedindicators.length>1){
                   
-
-
+ let s=[""]
+ 
+ 
                     for(let i=0;i<listofselectedindicators.length;i++) {
                   myChart.data.datasets.push( {
                                       label: '',
@@ -644,11 +654,12 @@ if(yearEnd>2025)yearEnd=datalastyear;
  }
  for(let ii=yearStart;ii<yearEnd ;ii++){
                                 myChart.data.labels.push(ii)
-                               
+                                s.push(ii)
+                                
                               }
-
-
-
+                             
+                                exceldata.push(s)
+                            
                         let text="<h1  class= 'display-5 text-center'>"+ soe+"   </h1><table class='table table-hover  table-striped' >";
                           text+="<tr> <th>"+nameOfindicator+ "</th> ";
                               for(let ii=yearStart;ii<yearEnd ;ii++){
@@ -663,7 +674,7 @@ if(yearEnd>2025)yearEnd=datalastyear;
                               {
                                 
                                 
-
+                                let f=[listofselectedindicators[i]]
 
                                       
                                 
@@ -671,11 +682,19 @@ if(yearEnd>2025)yearEnd=datalastyear;
                               for(let ii=yearStart;ii<yearEnd ;ii++){
                               text+="<td>"+ changeUndefined(bigdata[soe][findindexofselectedin(listofselectedindicators[i])][ii])+"   </td>";
                               myChart.data.datasets[i].data.push(changeUndefined(bigdata[soe][findindexofselectedin(listofselectedindicators[i])][ii]).replace('INR','').replace(/,/g,''))
-                             
-
-
-                              }
+                              f.push(changeUndefined(bigdata[soe][findindexofselectedin(listofselectedindicators[i])][ii]).replace('INR','').replace(/,/g,''))
+                               }
+                              
+                              
                               text+="</tr> ";
+                              console.log("myChart.data.datasets[i].data")
+                              console.log(myChart.data.datasets[i].data)
+                              console.log("[myChart.data.datasets[i].data]")
+                              console.log([myChart.data.datasets[i].data])
+                              exceldata.push(f)
+                              console.log("exceldata")
+                              console.log(exceldata)
+
                               }
                               text+="</table>";
 
@@ -908,5 +927,32 @@ function createSoe(soe){
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+<script lang="javascript" src="https://cdn.sheetjs.com/xlsx-0.18.11/package/dist/xlsx.full.min.js"></script>
+
+<script type="module">
+  
+async function extractxls(){
+
+  const XLSX = await import("https://cdn.sheetjs.com/xlsx-0.18.11/package/xlsx.mjs");
+  
+  const wb = XLSX.utils.book_new();
+  const ws = XLSX.utils.aoa_to_sheet(exceldata);
+  XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
+  XLSX.writeFile(wb, "deneme.xlsx");
+}
+
+
+  xport.addEventListener("click", async() => {
+if(exceldata.length<1){ 
+ console.log(exceldata.length)
+  alert("first fetch datas ")
+return
+} 
+  await extractxls()
+    /* dynamically import the library in the event listener */
+exceldata=[];
+
+  });
+  </script>
   </body>
 </html>
