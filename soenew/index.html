@@ -275,10 +275,10 @@ footer {
            <div class="  m-auto" id="table">
           </div>
         </div>
-       <div class=" w-100"> <button  class=" btn btn-info mx-auto my-4 w-100" id="xport">Export excel</button></div>
+       <div class=" w-100"> <button  class="btn d-none btn-info mx-auto my-4 w-100" id="xport">Export excel</button></div>
       
-
-        <div style=" margin:auto; width: 65%; height: 100%;">
+  
+        <div style="    margin:auto; width: 65%; height: 100%;">
           <canvas id="myChart" ></canvas>
         </div>
     </div>
@@ -291,7 +291,18 @@ footer {
 
        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
        <script>
+ function makevisibleornot(){
+    var button=document.getElementById("xport")
 
+    if(listofselectedindicators.length>1){
+      button.classList.remove("d-none")
+
+    }else{
+      button.classList.add("d-none")
+
+
+    }
+  }
 
  getdatam()
 var elel;
@@ -315,8 +326,7 @@ var elel;
 
 //export excell
 var exceldata=[];
-var excelheader=[];
-var exceltitle=[];
+ 
 
 
 let nameOfindicator;
@@ -586,7 +596,8 @@ function changeUndefined(num){
  
 }
  function showDatas(){
-
+  makevisibleornot();
+  exceldata=[];
   let chartStatus = Chart.getChart("myChart");  
     if (chartStatus != undefined) {
       chartStatus.destroy();
@@ -645,10 +656,11 @@ if(yearEnd>2025)yearEnd=datalastyear;
  
  
                     for(let i=0;i<listofselectedindicators.length;i++) {
+                      var ccolor=colorArray[Math.floor(Math.random() * colorArray.length)]
                   myChart.data.datasets.push( {
                                       label: '',
-                                      borderColor: colorArray[Math.floor(Math.random() * colorArray.length)],
-                                      backgroundColor : 'rgba(0, 0, 0,0)',
+                                      borderColor: ccolor,
+                                      backgroundColor : ccolor,
                                       data: [],  } )
                                      myChart.data.datasets[i].label=listofselectedindicators[i]
  }
@@ -938,21 +950,19 @@ async function extractxls(){
   const wb = XLSX.utils.book_new();
   const ws = XLSX.utils.aoa_to_sheet(exceldata);
   XLSX.utils.book_append_sheet(wb, ws, "Soe");
-  XLSX.writeFile(wb, "SOE_financials.xlsx");
+  XLSX.writeFile(wb, "SOE_financials_"+new Date().toISOString().split('T')[0]+".xlsx");
 }
-
+ 
 
   xport.addEventListener("click", async() => {
-if(exceldata.length<1){ 
- console.log(exceldata.length)
-  alert("first fetch datas ")
-return
-} 
+ 
   await extractxls()
     /* dynamically import the library in the event listener */
 exceldata=[];
 
   });
+
+ 
   </script>
   </body>
 </html>
