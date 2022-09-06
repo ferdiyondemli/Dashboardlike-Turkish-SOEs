@@ -937,8 +937,8 @@ async function extractxls(){
   
   const wb = XLSX.utils.book_new();
   const ws = XLSX.utils.aoa_to_sheet(exceldata);
-  XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
-  XLSX.writeFile(wb, "deneme.xlsx");
+  XLSX.utils.book_append_sheet(wb, ws, "Soe");
+  XLSX.writeFile(wb, "SOE_financials.xlsx");
 }
 
 
