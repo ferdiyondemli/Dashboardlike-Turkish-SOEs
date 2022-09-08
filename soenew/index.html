@@ -271,18 +271,23 @@ footer {
 
         </div>
 
-        <div class="row container-fluid" >
-           <div class="  m-auto" id="table">
+        <div id="xport" class=" d-none  column mt-5 text-center" >
+           <div style="border: rgb(23,162,184) 1px solid"  class="w-75  m-auto" id="table">
           </div>
+        <button  class="w-75 btn btn-info  mb-4  " >Export excel</button> 
+
+
         </div>
-       <div class=" w-100"> <button  class="btn d-none btn-info mx-auto my-4 w-100" id="xport">Export excel</button></div>
       
+  <div id="xport2" style=" background-color: rgb(31,41,55); padding: 50px 5px;" class=" d-none"> 
+
   
-        <div style="    margin:auto; width: 65%; height: 100%;">
+        <div  style="border-radius: 10px; background-color: rgb(248,249,250); margin:50px auto; width: 65%; height: 100%;" >
           <canvas id="myChart" ></canvas>
-        </div>
+        </div>  
+  </div>
     </div>
-    <footer i="footer" style="background-color: #1F2937;">
+    <footer i="footer" style="background-color: rgb(0,0,0);">
           <p class="text-white"> Source: <a class="link-success " target="_blank"  href="https://en.hmb.gov.tr/"> ANNUAL OWNERSHIP REPORTS OF SOEs</a></p>
           
        </footer>
@@ -292,16 +297,12 @@ footer {
        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
        <script>
  function makevisibleornot(){
-    var button=document.getElementById("xport")
+    var xport=document.getElementById("xport")
+    var xport2=document.getElementById("xport2")
 
-    if(listofselectedindicators.length>1){
-      button.classList.remove("d-none")
-
-    }else{
-      button.classList.add("d-none")
-
-
-    }
+    xport.classList.remove("d-none")
+    xport2.classList.remove("d-none")
+ 
   }
 
  getdatam()
@@ -612,6 +613,8 @@ function changeUndefined(num){
           type: 'line',
           data: data,
           options: {},
+          responsive: true,
+    maintainAspectRatio: true,
          
         };
 
@@ -694,6 +697,8 @@ if(yearEnd>2025)yearEnd=datalastyear;
                               for(let ii=yearStart;ii<yearEnd ;ii++){
                               text+="<td>"+ changeUndefined(bigdata[soe][findindexofselectedin(listofselectedindicators[i])][ii])+"   </td>";
                               myChart.data.datasets[i].data.push(changeUndefined(bigdata[soe][findindexofselectedin(listofselectedindicators[i])][ii]).replace('INR','').replace(/,/g,''))
+
+
                               f.push(changeUndefined(bigdata[soe][findindexofselectedin(listofselectedindicators[i])][ii]).replace('INR','').replace(/,/g,''))
                                }
                               
@@ -723,13 +728,19 @@ if(yearEnd>2025)yearEnd=datalastyear;
 
                     //incase one or more soe selected while  only one idicator selected
                   else {
+                    let m=[""];
+                    let n=[];
                     
                     let text="<h1 class= 'display-5 text-center'  >"+ indi+" </h1><table class='table table-hover  table-striped'>";
                                 text+="<tr> <th>"+nameOfindicator+ "</th> ";
                               for(let ii=yearStart;ii<yearEnd ;ii++){
                                 text+="<th> "+ ii+ "</th> "
                                 myChart.data.labels.push(ii)
+                                m.push(ii)
+                                
                               }
+                             
+                                exceldata.push(m)
                               text+="</tr> "
 
                               for(let i=0;i<listofselectedsoes.length;i++)
@@ -737,7 +748,7 @@ if(yearEnd>2025)yearEnd=datalastyear;
                               {
 
 
-
+                               n=[listofselectedsoes[i]]
 
                                
                   myChart.data.datasets.push( {
@@ -757,9 +768,16 @@ if(yearEnd>2025)yearEnd=datalastyear;
                               text+="<td>"+ changeUndefined(bigdata[listofselectedsoes[i]][findindexofselectedin(indi)][ii])+"   </td>";
 
                               myChart.data.datasets[i].data.push(changeUndefined(bigdata[listofselectedsoes[i]][findindexofselectedin(indi)][ii]).replace('INR','').replace(/,/g,''))
-
-                              }
+                              
+                              n.push(changeUndefined(bigdata[listofselectedsoes[i]][findindexofselectedin(indi)][ii]).replace('INR','').replace(/,/g,''))
+                            
+                            }
                               text+="</tr> ";
+
+                              exceldata.push(n)
+
+
+
                               }
 
 
