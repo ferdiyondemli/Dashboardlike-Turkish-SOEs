@@ -750,11 +750,11 @@ if(yearEnd>2025)yearEnd=datalastyear;
 
                                n=[listofselectedsoes[i]]
 
-                               
+                               var ccolor=colorArray[Math.floor(Math.random() * colorArray.length)]
                   myChart.data.datasets.push( {
                                       label: '',
-                                      borderColor: colorArray[Math.floor(Math.random() * colorArray.length)],
-                                      backgroundColor : 'rgba(0, 0, 0,0)',
+                                      borderColor: ccolor,
+                                      backgroundColor : ccolor,
                                       data: [],  } )
                                      myChart.data.datasets[i].label=listofselectedsoes[i]
  
